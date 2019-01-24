@@ -1,5 +1,5 @@
 ### BASE IMAGE ###
-FROM      dmi7ry/py-basic-exporter:0.6.0 as base
+FROM      dmi7ry/py-basic-exporter:0.6.1 as base
 FROM      base                           as builder
 
 RUN       mkdir /install
