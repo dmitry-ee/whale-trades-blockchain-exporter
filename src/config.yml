@@ -1,5 +1,25 @@
-DEFAULT:
-  LOL: 123
-
-def2:
-  loyce: 1234
+wtbe:
+  websocket:
+    sleep:
+      ms: 60000
+  repeater:
+    sleep:
+      ms: 120000
+  min:
+    # input:
+    #   btc: 1
+    #   total:
+    #     btc: 1
+    output:
+      btc: 10
+  message:
+    utx:
+      type  : "bitcoin_utx"
+      topic : "bitcoin_utx"
+    blockchain:
+      type  : "bitcoin_blockchain"
+      topic : "bitcoin_blockchain"
+  kafka:
+    url: "localhost:9092"
+  etv:
+    enabled: false
