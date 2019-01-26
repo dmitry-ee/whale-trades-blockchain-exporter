@@ -48,7 +48,7 @@ async def run(config):
         repeat_lambda=lambda self: statistics.get_pools(),
         sleep_ms=config.wtbe.pools.sleep.ms
     )
-    pools_filter = BlockchainPoolsFilter(config.wtbe.message.blockchain.pools)
+    pools_filter = BlockchainPoolsFilter(config.wtbe.message.pools.type)
 
     if str(config.wtbe.etv.enabled).lower() == "false":
         logger.warning("TURNING OFF ETV_FILTER")
