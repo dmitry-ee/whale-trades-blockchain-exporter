@@ -9,7 +9,9 @@ class BlockchainPoolsFilter(callback.Callback):
         super().__init__("BlockchainPoolsFilter")
         self.object_type = object_type
 
-    def processCallback(self, stat):
+    def processCallback(self, pools_info):
+        stat = {}
+        stat["pools"] = [{ "name": k, "value": v } for k,v in pools_info.items()]
         stat["type"] = self.object_type
         stat["timestamp"] = datetime.utcnow().isoformat()
         return stat
