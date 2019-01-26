@@ -5,6 +5,7 @@ importdir.do("lib", globals())
 from blockchain_tx_filter import BlockchainTxFilter
 from blockchain_etv_filter import BlockchainETVFilter
 from blockchain_stats_filter import BlockchainStatsFilter
+from blockchain_pools_filter import BlockchainPoolsFilter
 
 logger = logging.getLogger()
 
@@ -42,13 +43,24 @@ async def run(config):
     )
     stats_filter = BlockchainStatsFilter(config.wtbe.message.blockchain.type)
 
+    # pools scruber initializer
+    pools = basic_call_repeater.BasicCallRepeater(
+        repeat_lambda=lambda self: statistics.get_pools(),
+        sleep_ms=config.wtbe.pools.sleep.ms
+    )
+    pools_filter = BlockchainPoolsFilter(config.wtbe.message.blockchain.pools)
+
     if str(config.wtbe.etv.enabled).lower() == "false":
         logger.warning("TURNING OFF ETV_FILTER")
-    else: logger.warning("ETV_FILTER IS ON! IT MAY IMPACT CPU")
-    ws_filters = tx_filter.addCallback(kafka) if config.wtbe.etv.enabled == "false" else tx_filter.addCallback(etv_filter.addCallback(kafka))
+        ws_filters = tx_filter.addCallback(kafka)
+    else:
+        logger.warning("ETV_FILTER IS ON! IT MAY IMPACT CPU")
+        ws_filters = tx_filter.addCallback(etv_filter.addCallback(kafka))
+    #ws_filters = tx_filter.addCallback(kafka) if config.wtbe.etv.enabled == "false" else tx_filter.addCallback(etv_filter.addCallback(kafka))
 
     ws.addCallback(ws_filters)
     rep.addCallback(stats_filter.addCallback(kafka))
+    pools.addCallback(pools_filter.addCallback(kafka))
 
     tasks = [rep.run(), ws.run()]
     await asyncio.wait(tasks)

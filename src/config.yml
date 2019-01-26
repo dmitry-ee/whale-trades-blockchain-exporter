@@ -5,6 +5,9 @@ wtbe:
   repeater:
     sleep:
       ms: 120000
+  pools:
+    sleep:
+      ms: 300000
   min:
     # input:
     #   btc: 1
@@ -19,6 +22,9 @@ wtbe:
     blockchain:
       type  : "bitcoin_blockchain"
       topic : "bitcoin_blockchain"
+    pools:
+      type  : "bitcoin_pools"
+      topic : "bitcoin_pools"
   kafka:
     url: "localhost:9092"
   etv:
