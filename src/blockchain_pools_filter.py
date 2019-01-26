@@ -11,6 +11,5 @@ class BlockchainPoolsFilter(callback.Callback):
 
     def processCallback(self, stat):
         stat["type"] = self.object_type
-        stat["time"] = stat["timestamp"]
         stat["timestamp"] = datetime.utcnow().isoformat()
         return stat
