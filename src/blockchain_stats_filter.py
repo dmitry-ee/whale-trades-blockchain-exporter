@@ -10,6 +10,7 @@ class BlockchainStatsFilter(callback.Callback):
         self.object_type = object_type
 
     def processCallback(self, stat):
+        stat["pools"] = [{ "name": k, "value": v } for k,v in stat.items()]
         stat["type"] = self.object_type
         stat["time"] = stat["timestamp"]
         stat["timestamp"] = datetime.utcfromtimestamp(stat["timestamp"]/1000).isoformat()
