@@ -14,7 +14,8 @@ async def run(config):
     # kafka initializer
     kafka_type_mapping = {
         config.wtbe.message.utx.type: config.wtbe.message.utx.topic,
-        config.wtbe.message.blockchain.type: config.wtbe.message.blockchain.topic
+        config.wtbe.message.blockchain.type: config.wtbe.message.blockchain.topic,
+        config.wtbe.message.pools.type: config.wtbe.message.pools.topic,
     }
     kafka = kafka_callback.KafkaCallback(config.wtbe.kafka.url, type_topic_mapping=kafka_type_mapping)
 
