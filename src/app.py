@@ -62,5 +62,5 @@ async def run(config):
     rep.addCallback(stats_filter.addCallback(kafka))
     pools.addCallback(pools_filter.addCallback(kafka))
 
-    tasks = [rep.run(), ws.run()]
+    tasks = [rep.run(), ws.run(), pools.run()]
     await asyncio.wait(tasks)
