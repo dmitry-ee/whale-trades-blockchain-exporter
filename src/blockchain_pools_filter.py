@@ -10,8 +10,12 @@ class BlockchainPoolsFilter(callback.Callback):
         self.object_type = object_type
 
     def processCallback(self, pools_info):
-        stat = {}
-        stat["pools"] = [{ "name": k, "value": v } for k,v in pools_info.items()]
-        stat["type"] = self.object_type
-        stat["timestamp"] = datetime.utcnow().isoformat()
+        stat = [
+            {
+                "pool_name": k,
+                "pool_value": v,
+                "type": self.object_type,
+                "timestamp" = datetime.utcnow().isoformat()
+            } for k,v in pools_info.items()
+        ]
         return stat
