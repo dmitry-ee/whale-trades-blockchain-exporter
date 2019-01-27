@@ -15,7 +15,7 @@ class BlockchainPoolsFilter(callback.Callback):
                 "pool_name": k,
                 "pool_value": v,
                 "type": self.object_type,
-                "timestamp" = datetime.utcnow().isoformat()
+                "timestamp": datetime.utcnow().isoformat()
             } for k,v in pools_info.items()
         ]
         return stat
